@@ -4,13 +4,13 @@ import { twMerge } from "tailwind-merge";
 
 const LinkVariants = cva(
   [
-    "font-quicksand",
-    "p-4",
-    "rounded",
+    "font-sora",
+    "rounded-2xl",
     "font-bold",
     "tracking-widest",
     "shadow-3xl",
     "gap-2",
+    "py-1.5"
   ],
   {
     variants: {
@@ -26,14 +26,13 @@ const LinkVariants = cva(
       size: {
         small: ["text-xl", "py-3", "px-6", "w-full"],
         medium: ["text-base", "py-2", "px-4"],
-        large: ["w-full", "text-2xl", "py-3", "px-10"],
+        large: ["w-full", "text-xl", "py-3", "px-10"],
       },
     },
     compoundVariants: [
       {
         intent: "blue",
         size: "medium",
-        className: "uppercase",
       },
     ],
     defaultVariants: {

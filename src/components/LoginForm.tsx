@@ -54,17 +54,16 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center">
       <div className="inline-flex flex-col justify-center items-center form-card border-bg">
-        <h1 className="font-bold text-blue-deep label-input text-2xl -mt-4">
+        <h1 className="font-bold text-blue text-xl lg:text-2xl font-quicksand tracking-normal md:tracking-widest leading-none md:leading-normal lg:leading-loose mr-2 -mt-4">
           Login
         </h1>
         <form className="flex flex-col justify-center">
           <div className="flex flex-col gap-4">
-            <div className="place-item gap-px">
-              <label htmlFor="email" className="label-text">
+            <div className="flex flex-col justify-end items-start gap-y-1">
+              <label htmlFor="email" className="text-base md:text-md font-medium font-sora">
                 Email
-                <span className="asterisk">*</span>
               </label>
               <ReusableInput
                 id="email"
@@ -78,10 +77,9 @@ const LoginForm: React.FC = () => {
                 <div className="text-red-500 text-sm mt-1">{errors.email}</div>
               )}
             </div>
-            <div className="place-item gap-px">
-              <label htmlFor="password" className="label-text">
+            <div className="flex flex-col justify-end items-start gap-y-1">
+              <label htmlFor="password" className="text-base md:text-md font-medium font-sora">
                 Password
-                <span className="asterisk">*</span>
               </label>
               <ReusableInput
                 id="password"
@@ -96,19 +94,19 @@ const LoginForm: React.FC = () => {
               )}
             </div>
           </div>
-          <div className="flex items-center h-5 mt-4">
+          <div className="flex items-center h-5 mt-2">
             <input id="default-checkbox" type="checkbox" className="w-4 h-4 rounded-md border-bg" />
             <label htmlFor="default-checkbox" className="ml-2 font-medium text-black tracking-widest text-base">
               Remember me
             </label>
           </div>
-          <div className="flex-center mt-8">
-            <LinkButton to="/" intent="blue" size="small" className="flex items-center justify-center w-full">
+          <div className="flex-center mt-4">
+            <LinkButton to="/" intent="blue"  className="flex items-center justify-center w-full">
               Login
             </LinkButton>
           </div>
         </form>
-        <div className="flex-center text-base font-quicksand font-semibold mt-4">
+        <div className="flex-center text-sm font-sora font-semibold mt-4">
           <p>
             Don't have an account?{" "}
             <Link to="/signup" className="text-blue font-bold">

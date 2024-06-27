@@ -77,16 +77,15 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center">
       <div className="inline-flex flex-col justify-center items-center form-card border-bg">
-        <h1 className="font-extrabold text-blue-deep label-input text-2xl -mt-10">
-          Sign In
+        <h1 className="font-bold text-blue flex flex-col justify-end items-start text-xl -mt-10">
+          Sign Up
         </h1>
         <form className="flex flex-col justify-center">
-          <div className="place-item gap-px">
-            <label htmlFor="name" className="label-text">
+          <div className="flex flex-col justify-end items-start gap-y-1">
+            <label htmlFor="name" className="text-base md:text-md font-medium font-sora">
               Name
-              <span className="asterisk">*</span>
             </label>
             <ReusableInput
               id="name"
@@ -100,10 +99,9 @@ const SignUpForm: React.FC = () => {
               <div className="text-red-500 text-sm mt-1">{errors.name}</div>
             )}
           </div>
-          <div className="place-item gap-px">
-            <label htmlFor="email" className="label-text">
+          <div className="flex flex-col justify-end items-start gap-y-1">
+            <label htmlFor="email" className="text-base md:text-md font-medium font-sora">
               Email
-              <span className="asterisk">*</span>
             </label>
             <ReusableInput
               id="email"
@@ -117,10 +115,9 @@ const SignUpForm: React.FC = () => {
               <div className="text-red-500 text-sm mt-1">{errors.email}</div>
             )}
           </div>
-          <div className="place-item">
-            <label htmlFor="password" className="label-text">
+          <div className="flex flex-col justify-end items-start gap-y-1">
+            <label htmlFor="password" className="text-base md:text-md font-medium font-sora">
               Password
-              <span className="asterisk">*</span>
             </label>
             <ReusableInput
               id="password"
@@ -135,12 +132,12 @@ const SignUpForm: React.FC = () => {
             )}
           </div>
           <div className="flex-center mt-4">
-            <LinkButton to="/" intent="blue" size="small">
-              Create my account
+            <LinkButton to="/" intent="blue" className="flex items-center justify-center w-full">
+              Sign Up
             </LinkButton>
           </div>
         </form>
-        <div className="flex-center text-base font-quicksand font-semibold">
+        <div className="flex-center text-sm font-sora font-semibold">
           <p>
             Already have an account?{" "}
             <Link to="/" className="text-blue font-bold">
@@ -154,3 +151,5 @@ const SignUpForm: React.FC = () => {
 };
 
 export default SignUpForm;
+
+

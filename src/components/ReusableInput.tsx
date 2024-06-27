@@ -24,7 +24,7 @@ const ReusableInput: React.FC<ReusableInputProps> = ({
             value={value}
             onChange={onChange}
             onBlur={onBlur}
-            className={twMerge("form_input shadow", className)}
+            className={twMerge("flex flex-col justify-end items-start shadow", className)}
           >
             {options?.map((option) => (
               <option key={option} value={option}>
@@ -43,7 +43,7 @@ const ReusableInput: React.FC<ReusableInputProps> = ({
             onBlur={onBlur}
             placeholder={placeholder}
             rows={rows}
-            className={twMerge("form_input shadow", className)}
+            className={twMerge("flex flex-col justify-end items-start shadow", className)}
           />
         );
       default:
@@ -56,7 +56,7 @@ const ReusableInput: React.FC<ReusableInputProps> = ({
             onChange={onChange}
             onBlur={onBlur}
             placeholder={placeholder}
-            className={twMerge("form_input shadow w-full", className)}
+            className={twMerge("flex flex-col justify-end items-start shadow w-full mb-2 rounded-2xl py-1 px-1 border border-gray-300", className)}
           />
         );
     }
