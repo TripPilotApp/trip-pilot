@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext  } from "react";
 import { Link } from "react-router-dom";
 import ReusableInput from "./ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
+import { ModalContext } from "./ModalProvider";
 
 const LoginForm: React.FC = () => {
   interface FormValues {
@@ -17,6 +18,7 @@ const LoginForm: React.FC = () => {
   const [values, setValues] = useState<FormValues>({ email: "", password: "" });
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Partial<FormValues>>({});
+  const { openModal, closeModal, setToken } = useContext(ModalContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -52,7 +54,14 @@ const LoginForm: React.FC = () => {
     }
     setErrors({ ...errors, [name]: error });
   };
-
+  const handleLogin = async () => {
+    if (!values.email || !values.password) {
+      return setErrorMessage("Please fill all the fields");
+    }
+    setErrorMessage("");
+    closeModal('loginModal');
+    setToken('xyz');
+  }
   return (
     <div className="flex justify-center items-center">
       <div className="inline-flex flex-col justify-center items-center form-card border-bg">
@@ -101,7 +110,7 @@ const LoginForm: React.FC = () => {
             </label>
           </div>
           <div className="flex-center mt-4">
-            <LinkButton to="/" intent="blue"  className="flex items-center justify-center w-full">
+            <LinkButton to="/" intent="blue" onClick={handleLogin} className="flex items-center justify-center w-full">
               Login
             </LinkButton>
           </div>
@@ -109,7 +118,9 @@ const LoginForm: React.FC = () => {
         <div className="flex-center text-sm font-sora font-semibold mt-4">
           <p>
             Don't have an account?{" "}
-            <Link to="/signup" className="text-blue font-bold">
+            <Link to="/signup" className="text-blue font-bold"  onClick={() => {
+              openModal('signUpModal');
+            }}>
               Sign up<span className="text-black">!</span>
             </Link>
           </p>

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext  } from "react";
 import { Link } from "react-router-dom";
 import ReusableInput from "./ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
+import { ModalContext } from "./ModalProvider";
 
 interface FormValues {
   name: string;
@@ -24,6 +25,7 @@ const SignUpForm: React.FC = () => {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Partial<FormValues>>({});
+  const { openModal, closeModal, setToken } = useContext(ModalContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -75,6 +77,14 @@ const SignUpForm: React.FC = () => {
       [name]: error
     });
   };
+  const handleSignIn = async () => {
+    if (!values.name || !values.email || !values.password) {
+      return setErrors("Please fill all the fields");
+    }
+    setErrors("");
+    closeModal('signUpModal');
+    setToken('xyz');
+  }
 
   return (
     <div className="flex justify-center items-center">
@@ -132,7 +142,7 @@ const SignUpForm: React.FC = () => {
             )}
           </div>
           <div className="flex-center mt-4">
-            <LinkButton to="/" intent="blue" className="flex items-center justify-center w-full">
+            <LinkButton to="/" intent="blue" className="flex items-center justify-center w-full" onClick={handleSignIn} >
               Sign Up
             </LinkButton>
           </div>
@@ -140,7 +150,9 @@ const SignUpForm: React.FC = () => {
         <div className="flex-center text-sm font-sora font-semibold">
           <p>
             Already have an account?{" "}
-            <Link to="/" className="text-blue font-bold">
+            <Link to="/" className="text-blue font-bold" onClick={() => {
+                openModal('loginModal');
+              }}>
               Login<span className="text-black">!</span>
             </Link>
           </p>
