@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ReusableInput from "./ReusableInput";
-import { LinkButton } from "./ui/LinkButton";
+// import { LinkButton } from "./ui/LinkButton";
 import axios from "axios";
 
 const LoginForm: React.FC = () => {
