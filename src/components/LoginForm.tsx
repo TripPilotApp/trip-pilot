@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ReusableInput from "./ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
 import { ModalContext } from "./modal/ModalProvider";
+import hand from "../assets/Icons/bi_hand-index.svg"
 
 const LoginForm: React.FC = () => {
   interface FormValues {
@@ -68,7 +69,7 @@ const LoginForm: React.FC = () => {
         <h1 className="font-bold text-blue text-xl lg:text-2xl font-sora leading-none md:leading-normal lg:leading-loose mr-2 -mt-4">
           Login
         </h1>
-        <form className="flex flex-col justify-center">
+        <form onSubmit={handleLogin} className="flex flex-col justify-center">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col justify-end items-start gap-y-1">
               <label htmlFor="email" className="text-base md:text-md font-medium font-sora">
@@ -115,13 +116,15 @@ const LoginForm: React.FC = () => {
             </LinkButton>
           </div>
         </form>
-        <div className="flex-center text-sm font-sora font-semibold mt-4">
+        <div className="flex-center text-xs font-sora font-semibold mt-4">
           <p>
             Don't have an account?{" "}
             <Link to="/signup" className="text-blue font-bold"  onClick={() => {
               openModal('signUpModal');
             }}>
-              Sign up<span className="text-blue">!</span>
+              Sign up<span className="text-blue">!
+                <img  className="ml-40 w-6 h-5 -mt-1.5" src={hand} />
+              </span>
             </Link>
           </p>
         </div>

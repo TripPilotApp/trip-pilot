@@ -148,7 +148,7 @@ const SignUpForm: React.FC = () => {
             </LinkButton>
           </div>
         </form>
-        <div className="flex-center text-sm font-sora font-semibold">
+        <div className="flex-center text-xs font-sora font-semibold">
           <p>
             Already have an account?{" "}
             <Link to="/" className="text-blue font-bold" onClick={() => {
