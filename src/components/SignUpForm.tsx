@@ -2,7 +2,7 @@ import React, { useState, useContext  } from "react";
 import { Link } from "react-router-dom";
 import ReusableInput from "./ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
-import { ModalContext } from "./ModalProvider";
+import { ModalContext } from "./modal/ModalProvider";
 
 interface FormValues {
   name: string;
@@ -26,6 +26,7 @@ const SignUpForm: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Partial<FormValues>>({});
   const { openModal, closeModal, setToken } = useContext(ModalContext);
+  const [errorMessage, setErrorMessage]=useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -79,9 +80,9 @@ const SignUpForm: React.FC = () => {
   };
   const handleSignIn = async () => {
     if (!values.name || !values.email || !values.password) {
-      return setErrors("Please fill all the fields");
+      return setErrorMessage("Please fill all the fields");
     }
-    setErrors("");
+    setErrorMessage("");
     closeModal('signUpModal');
     setToken('xyz');
   }
@@ -89,10 +90,10 @@ const SignUpForm: React.FC = () => {
   return (
     <div className="flex justify-center items-center">
       <div className="inline-flex flex-col justify-center items-center form-card border-bg">
-        <h1 className="font-bold text-blue flex flex-col justify-end items-start text-xl -mt-10">
+        <h1 className="font-bold text-blue flex flex-col justify-end items-start text-xl lg:text-2xl font-sora -mt-4">
           Sign Up
         </h1>
-        <form className="flex flex-col justify-center">
+        <form onSubmit={handleSignIn} className="flex flex-col justify-center">
           <div className="flex flex-col justify-end items-start gap-y-1">
             <label htmlFor="name" className="text-base md:text-md font-medium font-sora">
               Name
@@ -142,7 +143,7 @@ const SignUpForm: React.FC = () => {
             )}
           </div>
           <div className="flex-center mt-4">
-            <LinkButton to="/" intent="blue" className="flex items-center justify-center w-full" onClick={handleSignIn} >
+            <LinkButton to="/" intent="blue" className="flex items-center justify-center w-full">
               Sign Up
             </LinkButton>
           </div>
@@ -153,7 +154,7 @@ const SignUpForm: React.FC = () => {
             <Link to="/" className="text-blue font-bold" onClick={() => {
                 openModal('loginModal');
               }}>
-              Login<span className="text-black">!</span>
+              Login<span className="text-blue">!</span>
             </Link>
           </p>
         </div>

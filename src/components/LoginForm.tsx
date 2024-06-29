@@ -2,7 +2,7 @@ import React, { useState, useContext  } from "react";
 import { Link } from "react-router-dom";
 import ReusableInput from "./ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
-import { ModalContext } from "./ModalProvider";
+import { ModalContext } from "./modal/ModalProvider";
 
 const LoginForm: React.FC = () => {
   interface FormValues {
@@ -14,7 +14,7 @@ const LoginForm: React.FC = () => {
     email?: string;
     password?: string;
   }
-
+  const [errorMessage, setErrorMessage]=useState<string>("");
   const [values, setValues] = useState<FormValues>({ email: "", password: "" });
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Partial<FormValues>>({});
@@ -65,7 +65,7 @@ const LoginForm: React.FC = () => {
   return (
     <div className="flex justify-center items-center">
       <div className="inline-flex flex-col justify-center items-center form-card border-bg">
-        <h1 className="font-bold text-blue text-xl lg:text-2xl font-quicksand tracking-normal md:tracking-widest leading-none md:leading-normal lg:leading-loose mr-2 -mt-4">
+        <h1 className="font-bold text-blue text-xl lg:text-2xl font-sora leading-none md:leading-normal lg:leading-loose mr-2 -mt-4">
           Login
         </h1>
         <form className="flex flex-col justify-center">
@@ -121,7 +121,7 @@ const LoginForm: React.FC = () => {
             <Link to="/signup" className="text-blue font-bold"  onClick={() => {
               openModal('signUpModal');
             }}>
-              Sign up<span className="text-black">!</span>
+              Sign up<span className="text-blue">!</span>
             </Link>
           </p>
         </div>

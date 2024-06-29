@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const plugin = require("tailwindcss/plugin");
+import plugin from "tailwindcss/plugin";
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -19,7 +19,7 @@ export default {
     fontFamily: {
       sora: ["Sora", "sans-serif"],
     },
-    typography: (theme) => ({
+    typography: () => ({
       default: {
         css: {
           fontFamily: {
@@ -34,8 +34,7 @@ export default {
   },
   },
   plugins: [
-    require("@tailwindcss/typography"),
-    plugin(function ({ addUtilities, addComponents }) {
+    plugin(function ({ addComponents }) {
       addComponents({
         ".form-card": {
           width: "420px",

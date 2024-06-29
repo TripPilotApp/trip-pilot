@@ -31,8 +31,8 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 
   const openModal = (modal: string) => {
     setShowModal((prevState) => ({
-      ...prevState,
-      [modal]: true,
+      loginModal: modal === 'loginModal' ? true : false,
+      signUpModal: modal === 'signUpModal' ? true : false,
     }));
   };
 

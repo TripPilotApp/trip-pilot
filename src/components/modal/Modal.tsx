@@ -15,12 +15,12 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose, children }) => {
 
   return (
     <div
-      className="w-full h-full fixed bg-black bg-opacity-40 top-0 left-0 z-50 p-20 flex justify-center items-center"
+      className="mx-10 lg:mx-28 bg-white top-0 left-0 z-50 flex justify-center items-center rounded-md"
       id="wrapper"
       onClick={handleClose}
     >
-      <div className="md:w-[420px] w-full mx-auto flex flex-col">
-        <div className="p-2 rounded">{children}</div>
+      <div className="flex flex-col">
+        <div className="rounded">{children}</div>
       </div>
     </div>
   );

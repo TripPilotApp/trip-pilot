@@ -7,7 +7,7 @@ const LinkVariants = cva(
     "font-sora",
     "rounded-2xl",
     "font-bold",
-    "tracking-widest",
+    "tracking-normal",
     "shadow-3xl",
     "gap-2",
     "py-1.5"
