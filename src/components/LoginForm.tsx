@@ -1,9 +1,11 @@
-import React, { useState, useContext  } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import ReusableInput from "./ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
 import { ModalContext } from "./modal/ModalProvider";
 import hand from "../assets/Icons/bi_hand-index.svg"
+import { handleLogin } from '../api/registerLogin';
 
 const LoginForm: React.FC = () => {
   interface FormValues {
@@ -15,11 +17,12 @@ const LoginForm: React.FC = () => {
     email?: string;
     password?: string;
   }
-  const [errorMessage, setErrorMessage]=useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [values, setValues] = useState<FormValues>({ email: "", password: "" });
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Partial<FormValues>>({});
   const { openModal, closeModal, setToken } = useContext(ModalContext);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -55,21 +58,32 @@ const LoginForm: React.FC = () => {
     }
     setErrors({ ...errors, [name]: error });
   };
-  const handleLogin = async () => {
+  const handleSubmit = async () => {
     if (!values.email || !values.password) {
       return setErrorMessage("Please fill all the fields");
     }
     setErrorMessage("");
-    closeModal('loginModal');
-    setToken('xyz');
-  }
+    try {
+      const response = await handleLogin(values.email, values.password, rememberMe);
+      console.log(response.data);
+      closeModal('loginModal');
+      setToken(response.data.token);
+    } catch (error) {
+      console.error('Error login', error);
+      if (axios.isAxiosError(error) && error.response && error.response.data && error.response.data.message) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage("Login failed. Please try again.");
+      }
+    }
+  };
   return (
     <div className="flex justify-center items-center">
       <div className="inline-flex flex-col justify-center items-center form-card border-bg">
         <h1 className="font-bold text-blue text-xl lg:text-2xl font-sora leading-none md:leading-normal lg:leading-loose mr-2 -mt-4">
           Login
         </h1>
-        <form onSubmit={handleLogin} className="flex flex-col justify-center">
+        <form className="flex flex-col justify-center">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col justify-end items-start gap-y-1">
               <label htmlFor="email" className="text-base md:text-md font-medium font-sora">
@@ -84,7 +98,7 @@ const LoginForm: React.FC = () => {
                 onBlur={handleBlur}
               />
               {touched.email && errors.email && (
-                <div className="text-red-500 text-sm mt-1">{errors.email}</div>
+                <div className="text-red-600 text-sm mt-1">{errors.email}</div>
               )}
             </div>
             <div className="flex flex-col justify-end items-start gap-y-1">
@@ -100,18 +114,22 @@ const LoginForm: React.FC = () => {
                 onBlur={handleBlur}
               />
               {touched.password && errors.password && (
-                <div className="text-red-500 text-sm mt-1">{errors.password}</div>
+                <div className="text-red-600 text-sm mt-1">{errors.password}</div>
               )}
             </div>
           </div>
           <div className="flex items-center h-5 mt-2">
-            <input id="default-checkbox" type="checkbox" className="w-4 h-4 rounded-md border-bg" />
-            <label htmlFor="default-checkbox" className="ml-2 font-medium text-black tracking-widest text-base">
+            <input id="default-checkbox" type="checkbox" className="w-4 h-4 rounded-md border-bg" checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)} />
+            <label htmlFor="default-checkbox" className="ml-2 font-medium text-black text-base">
               Remember me
             </label>
           </div>
+          {errorMessage && (
+            <div className="text-red-600 text-sm mt-2">{errorMessage}</div>
+          )}
           <div className="flex-center mt-4">
-            <LinkButton to="/" intent="blue" onClick={handleLogin} className="flex items-center justify-center w-full">
+            <LinkButton to="/" intent="blue" className="flex items-center justify-center w-full" onClick={handleSubmit}>
               Login
             </LinkButton>
           </div>
@@ -119,11 +137,11 @@ const LoginForm: React.FC = () => {
         <div className="flex-center text-xs font-sora font-semibold mt-4">
           <p>
             Don't have an account?{" "}
-            <Link to="/signup" className="text-blue font-bold"  onClick={() => {
+            <Link to="/signup" className="text-blue font-bold" onClick={() => {
               openModal('signUpModal');
             }}>
               Sign up<span className="text-blue">!
-                <img  className="ml-40 w-6 h-5 -mt-1.5" src={hand} />
+                <img className="ml-40 w-6 h-5 -mt-1.5" src={hand} />
               </span>
             </Link>
           </p>

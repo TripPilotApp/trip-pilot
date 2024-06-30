@@ -7,10 +7,6 @@ export const signUpValidationSchema = Yup.object().shape({
     .min(3, "name must be at least 3 characters long")
     .max(20, "name is too Long!"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  username: Yup.string()
-    .required("username is required")
-    .min(3, "username must be at least 3 characters long")
-    .max(20, "username is too Long!"),
   password: Yup.string()
     .min(6, "Password is too Short!")
     .max(10, "Password is too Long!")

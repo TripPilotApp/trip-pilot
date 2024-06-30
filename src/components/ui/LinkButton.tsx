@@ -47,16 +47,19 @@ export interface LinkButtonProps
   VariantProps<typeof LinkVariants> {
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
 export const LinkButton: React.FC<LinkButtonProps> = ({
   intent,
   size,
   className,
+  onClick,
   ...props
 }) => (
   <Link
     {...props}
     className={twMerge(LinkVariants({ className, intent, size }))}
+    onClick={onClick}
   />
 );

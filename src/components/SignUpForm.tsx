@@ -1,8 +1,10 @@
 import React, { useState, useContext  } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import ReusableInput from "./ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
 import { ModalContext } from "./modal/ModalProvider";
+import { handleSignIn } from '../api/registerLogin';
 
 interface FormValues {
   name: string;
@@ -78,14 +80,25 @@ const SignUpForm: React.FC = () => {
       [name]: error
     });
   };
-  const handleSignIn = async () => {
+  const handleSubmit = async () => {
     if (!values.name || !values.email || !values.password) {
       return setErrorMessage("Please fill all the fields");
     }
     setErrorMessage("");
-    closeModal('signUpModal');
-    setToken('xyz');
-  }
+    try {
+      const response = await handleSignIn(values.name, values.email, values.password);
+      console.log(response.data);
+      closeModal('signUpModal');
+      setToken(response.data.token);
+    } catch (error) {
+      console.error('Error signing up', error);
+      if (axios.isAxiosError(error) && error.response && error.response.data && error.response.data.message) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage("Sign-up failed. Please try again.");
+      }
+    }
+  };
 
   return (
     <div className="flex justify-center items-center">
@@ -93,7 +106,7 @@ const SignUpForm: React.FC = () => {
         <h1 className="font-bold text-blue flex flex-col justify-end items-start text-xl lg:text-2xl font-sora -mt-4">
           Sign Up
         </h1>
-        <form onSubmit={handleSignIn} className="flex flex-col justify-center">
+        <form className="flex flex-col justify-center">
           <div className="flex flex-col justify-end items-start gap-y-1">
             <label htmlFor="name" className="text-base md:text-md font-medium font-sora">
               Name
@@ -107,7 +120,7 @@ const SignUpForm: React.FC = () => {
               onBlur={handleBlur}
             />
             {touched.name && errors.name && (
-              <div className="text-red-500 text-sm mt-1">{errors.name}</div>
+              <div className="text-red-600 text-sm mt-1">{errors.name}</div>
             )}
           </div>
           <div className="flex flex-col justify-end items-start gap-y-1">
@@ -123,7 +136,7 @@ const SignUpForm: React.FC = () => {
               onBlur={handleBlur}
             />
             {touched.email && errors.email && (
-              <div className="text-red-500 text-sm mt-1">{errors.email}</div>
+              <div className="text-red-600 text-sm mt-1">{errors.email}</div>
             )}
           </div>
           <div className="flex flex-col justify-end items-start gap-y-1">
@@ -139,11 +152,14 @@ const SignUpForm: React.FC = () => {
               onBlur={handleBlur}
             />
             {touched.password && errors.password && (
-              <div className="text-red-500 text-sm mt-1">{errors.password}</div>
+              <div className="text-red-600 text-sm mt-1">{errors.password}</div>
             )}
           </div>
+          {errorMessage && (
+            <div className="text-red-600 text-sm mt-2">{errorMessage}</div>
+          )}
           <div className="flex-center mt-4">
-            <LinkButton to="/" intent="blue" className="flex items-center justify-center w-full">
+            <LinkButton to="/" intent="blue" className="flex items-center justify-center w-full" onClick={handleSubmit}>
               Sign Up
             </LinkButton>
           </div>
@@ -164,5 +180,3 @@ const SignUpForm: React.FC = () => {
 };
 
 export default SignUpForm;
-
-

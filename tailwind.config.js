@@ -13,8 +13,11 @@ export default {
         "blue-500": "rgb(59 130 246)",
         "blue-deep": "rgb(30 58 138)",
         "pine-green": "#00695E",
-        "regal-blue": "#004069",
+        "dark-black": "#27292C",
         "light-primary": "var(--background-light-primary, #FFF);",
+      },
+      cursor: {
+        'fancy': 'url(/assets/Icons/bi_hand-index.svg), pointer',
       },
       boxShadow: {
         '3xl': '0px 4px 4px 0px rgba(0, 0, 0, 0.25);',
@@ -48,4 +51,3 @@ export default {
     }),
   ],
 }
-
