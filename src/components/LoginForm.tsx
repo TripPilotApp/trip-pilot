@@ -4,7 +4,6 @@ import axios from "axios";
 import ReusableInput from "./ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
 import { ModalContext } from "./modal/ModalProvider";
-import hand from "../assets/Icons/bi_hand-index.svg"
 import { handleLogin } from '../api/registerLogin';
 
 const LoginForm: React.FC = () => {
@@ -141,7 +140,6 @@ const LoginForm: React.FC = () => {
               openModal('signUpModal');
             }}>
               Sign up<span className="text-blue">!
-                <img className="ml-40 w-6 h-5 -mt-1.5" src={hand} />
               </span>
             </Link>
           </p>

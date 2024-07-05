@@ -7,7 +7,6 @@ import home from '../assets/Icons/HomeIcon.svg';
 import pastTrip from '../assets/Icons/PastTripsIcon.svg';
 import logo from '../assets/Icons/white-logo.png';
 import SupportIcon from '../assets/Icons/SupportIcon.svg';
-import hand from "../assets/Icons/bi_hand-index.svg"
 
 const MainContent: React.FC = () => {
   const { showModal, openModal, closeModal } = useContext(ModalContext);
@@ -21,13 +20,6 @@ const MainContent: React.FC = () => {
         </div>
       </div>
       <nav className="flex flex-col items-center mt-24">
-        {/* <img className="ml-60 w-6 h-5 -mb-16" src={hand} />
-        <div className="flex items-center mb-4 bg-white rounded-xl px-3 py-2 w-60 shadow-3xl">
-          <img className="w-6 h-6" src={home} alt="login" />
-          <button onClick={() => openModal('loginModal')} className="ml-2 text-dark-black bg-white rounded-lg py-3 px-6 text-md font-sora font-semibold leading-3">
-            Login
-          </button>
-        </div> */}
         <div className="relative w-full flex items-center mb-6">
           <div className="flex items-center bg-white rounded-xl px-3 py-2 w-60 shadow-3xl cursor-pointer">
             <img className="w-6 h-6" src={home} alt="login" />
@@ -35,7 +27,6 @@ const MainContent: React.FC = () => {
               Login
             </button>
           </div>
-          <img className="absolute -right-2 w-6 h-5 -mb-16" src={hand} />
         </div>
         <div className="flex items-center mb-4 bg-white rounded-xl px-3 py-2 w-60 shadow-3xl cursor-pointer">
           <img className="w-6 h-6" src={pastTrip} alt="Register" />

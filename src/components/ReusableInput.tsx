@@ -56,7 +56,7 @@ const ReusableInput: React.FC<ReusableInputProps> = ({
             onChange={onChange}
             onBlur={onBlur}
             placeholder={placeholder}
-            className={twMerge("flex flex-col justify-end items-start shadow w-full mb-2 rounded-2xl py-1 px-1 border border-gray-300", className)}
+            className={twMerge("flex flex-col justify-end items-start shadow w-full mb-2 rounded-2xl py-1 px-4 border border-gray-300", className)}
           />
         );
     }
