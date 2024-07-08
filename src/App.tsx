@@ -1,12 +1,16 @@
-import { useState } from 'react'
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ModalProvider } from './components/modal/ModalProvider';
+import MainContent from './components/MainContent';
 
-function App() {
-
+const App: React.FC = () => {
   return (
-    <>
-      <h1 className='text-2xl text-blue-500 font-bold underline'>TripPilot</h1>
-    </>
-  )
-}
+    <ModalProvider>
+      <Router>
+        <MainContent />
+      </Router>
+    </ModalProvider>
+  );
+};
 
-export default App
+export default App;
