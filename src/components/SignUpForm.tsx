@@ -1,11 +1,9 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import ReusableInput from "./ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
 import { ModalContext } from "./modal/ModalProvider";
 import { handleSignIn } from '../api/registerLogin';
-import hand from "../assets/Icons/bi_hand-index.svg";
 
 interface FormValues {
   name: string;
@@ -23,7 +21,7 @@ interface SignUpFormProps {
   setActiveForm: (form: 'login' | 'signup' | null) => void;
 }
 const SignUpForm: React.FC<SignUpFormProps> = ({setActiveForm}) => {
-  const { closeModal, setToken, openModal } = useContext(ModalContext);
+  const { closeModal, setToken } = useContext(ModalContext);
 
   const [values, setValues] = useState<FormValues>({
     name: "",
