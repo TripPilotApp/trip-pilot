@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-    @font-face {
-        font-family: 'Sora';
-        src: url("assets/fonts/Sora-VariableFont_wght.ttf");
-    }
-}
-
 header {
-    background-image: url("assets/images/header-background.png");
+    background-image: url("assets/photos/Header.png");
 }

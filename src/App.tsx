@@ -1,13 +1,16 @@
-import { useState } from 'react'
-import Header from './components/Header/Header'
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ModalProvider } from './components/modal/ModalProvider';
+import LandingPage from './components/LandingPage';
 
-function App() {
-
+const App: React.FC = () => {
   return (
-    <>
-      <Header/>
-    </>
-  )
-}
+    <ModalProvider>
+      <Router>
+        <LandingPage />
+      </Router>
+    </ModalProvider>
+  );
+};
 
-export default App
+export default App;
