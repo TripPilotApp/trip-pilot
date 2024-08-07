@@ -1,15 +1,16 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import ReusableInput from "./ReusableInput";
+import ReusableInput from "./ui/ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
 import { ModalContext } from "./modal/ModalProvider";
 import { handleLogin } from '../api/registerLogin';
 
 interface LoginFormProps {
   setActiveForm: (form: 'login' | 'signup' | null) => void;
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({setActiveForm}) => {
+const LoginForm: React.FC<LoginFormProps> = ({ setActiveForm, setLoggedIn }) => {
   interface FormValues {
     email: string;
     password: string;
@@ -70,8 +71,9 @@ const LoginForm: React.FC<LoginFormProps> = ({setActiveForm}) => {
     try {
       const response = await handleLogin(values.email, values.password, rememberMe);
       console.log(response.data);
-      closeModal('loginModal');
+      closeModal('menuModal');
       setToken(response.data.token);
+      setLoggedIn(true);
     } catch (error) {
       console.error('Error logging in', error);
       if (axios.isAxiosError(error) && error.response && error.response.data && error.response.data.message) {
@@ -149,11 +151,12 @@ const LoginForm: React.FC<LoginFormProps> = ({setActiveForm}) => {
         <div className="flex-center text-xs font-sora font-semibold mt-4">
           <p>
             Don't have an account?{" "}
-            <span className="text-blue font-bold" onClick={() => setActiveForm('signup')}>
+            <span className="text-blue font-bold cursor-pointer" onClick={() => setActiveForm('signup')}>
               Sign up
             </span>
           </p>
-          <p onClick={() => {setActiveForm(null)}}>Back</p>
+          {/* TODO: style this back button */}
+          <p className="text-blue font-bold cursor-pointer pt-2" onClick={() => {setActiveForm(null)}}>Main Menu</p>
         </div>
       </div>
     </div>

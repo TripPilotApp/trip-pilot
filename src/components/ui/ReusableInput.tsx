@@ -1,5 +1,5 @@
 import React from "react";
-import { ReusableInputProps } from "../utils/interfaces";
+import { ReusableInputProps } from "../../utils/interfaces";
 import { twMerge } from "tailwind-merge";
 
 const ReusableInput: React.FC<ReusableInputProps> = ({

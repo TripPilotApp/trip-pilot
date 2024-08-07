@@ -1,11 +1,16 @@
-import logo from '../assets/Icons/white-logo.png';
+import logo from '../assets/icons/white-logo.png';
 import { ModalContext } from './modal/ModalProvider';
-import { useContext} from 'react';
+import React, { useContext } from 'react';
 import MenuModal from './modal/MenuModal';
 import AuthMenu from './modal/AuthMenu';
-import Menu from './Menu';
+import MainMenu from './modal/MainMenu';
 
-const Header = () => {
+interface HeaderProps {
+    loggedIn: boolean;
+    setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Header: React.FC<HeaderProps> = ({ loggedIn, setLoggedIn }) => {
     const { showModal, openModal, closeModal } = useContext(ModalContext);
 
     return (
@@ -31,14 +36,15 @@ const Header = () => {
             </nav>
             {
                 showModal.menuModal && (
-                    // TODO: add conditional for if logged in:
-                    // <MenuModal isVisible={showModal.menuModal} onClose={() => closeModal('menuModal')}>
-                    //     <Menu />
-                    // </MenuModal>
-
-                    // if not logged in:
                     <MenuModal isVisible={showModal.menuModal} onClose={() => closeModal('menuModal')}>
-                        <AuthMenu />
+                        {loggedIn ? 
+                        <MainMenu 
+                            setLoggedIn={setLoggedIn}
+                        />
+                        :
+                        <AuthMenu 
+                            setLoggedIn={setLoggedIn}
+                        />}
                     </MenuModal>
                 )
             }

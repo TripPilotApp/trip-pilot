@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import ReusableInput from "./ReusableInput";
+import ReusableInput from "./ui/ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
 import { ModalContext } from "./modal/ModalProvider";
 import { handleSignIn } from '../api/registerLogin';
@@ -176,10 +176,12 @@ const SignUpForm: React.FC<SignUpFormProps> = ({setActiveForm}) => {
         <div className="flex-center text-xs font-sora font-semibold mt-4">
           <p>
             Already have an account?{" "}
-            <span className="text-blue font-bold" onClick={() => setActiveForm('login')}>
+            <span className="text-blue font-bold cursor-pointer" onClick={() => setActiveForm('login')}>
               Login
             </span>
           </p>
+          {/* TODO: style this back button */}
+          <p className="text-blue font-bold cursor-pointer pt-2" onClick={() => {setActiveForm(null)}}>Main Menu</p>
         </div>
       </div>
     </div>
