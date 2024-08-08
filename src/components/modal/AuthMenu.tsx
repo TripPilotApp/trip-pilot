@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 // import { ModalContext } from './ModalProvider';
 import LoginForm from '../LoginForm';
 import SignUpForm from '../SignUpForm';
-import home from '../../assets/icons/home-icon.svg';
-import pastTrip from '../../assets/icons/past-trips-icon.svg';
+import homeIcon from '../../assets/icons/home-icon.svg';
+import pastTripIcon from '../../assets/icons/past-trips-icon.svg';
 import logo from '../../assets/icons/white-logo.png';
-import SupportIcon from '../../assets/icons/support-icon.svg';
+import supportIcon from '../../assets/icons/support-icon.svg';
 // import BackButton from './BackButton'; // Assuming BackButton component exists
 
 interface AuthMenuProps {
@@ -20,32 +20,53 @@ const AuthMenu: React.FC<AuthMenuProps> = ({ setLoggedIn }) => {
   };
 
   return (
-    <div className="flex flex-col h-screen items-center">
-      <div className="flex flex-row mb-3 mt-5">
+    <div
+      className="flex flex-col h-screen items-center"
+      role="region"
+      aria-labelledby="auth-menu"
+    >
+      <div 
+        className="flex flex-row mb-3 mt-5"
+        id="auth-menu"
+      >
         <div className="flex justify-between">
-          <img className="w-14 h-14" src={logo} alt="Logo" />
+          <img className="w-14 h-14" src={logo} alt="TripPilot Logo" />
           <h1 className="text-white font-sora text-3xl font-bold mt-2">TripPilot</h1>
         </div>
       </div>
 
       {/* Conditional rendering based on activeForm */}
       {!activeForm && (
-        <nav className="flex flex-col items-center mt-24">
-            <div className="flex items-center mb-4 bg-white rounded-xl px-3 py-2 w-60 shadow-3xl cursor-pointer">
-              <img className="w-6 h-6" src={home} alt="login" />
-              <button onClick={() => handleOpenForm('login')} className="ml-2 text-dark-black bg-white rounded-lg py-3 px-6 text-md font-sora font-semibold leading-3">
-                Login
-              </button>
-            </div>
+        <nav 
+          className="flex flex-col items-center mt-24"
+          aria-label="Authentication options"
+        >
           <div className="flex items-center mb-4 bg-white rounded-xl px-3 py-2 w-60 shadow-3xl cursor-pointer">
-            <img className="w-6 h-6" src={pastTrip} alt="Register" />
-            <button onClick={() => handleOpenForm('signup')} className="ml-2 text-dark-black bg-white rounded-lg py-3 px-6 text-md font-sora font-semibold leading-3">
+            <img className="w-6 h-6" src={homeIcon} alt="Login icon" />
+            <button 
+              onClick={() => handleOpenForm('login')} 
+              className="ml-2 text-dark-black bg-white rounded-lg py-3 px-6 text-md font-sora font-semibold leading-3"
+              aria-label="Login"
+            >
+              Login
+            </button>
+          </div>
+          <div className="flex items-center mb-4 bg-white rounded-xl px-3 py-2 w-60 shadow-3xl cursor-pointer">
+            <img className="w-6 h-6" src={pastTripIcon} alt="Sign up icon" />
+            <button 
+              onClick={() => handleOpenForm('signup')} 
+              className="ml-2 text-dark-black bg-white rounded-lg py-3 px-6 text-md font-sora font-semibold leading-3"
+              aria-label="Sign up"
+            >
               Sign Up
             </button>
           </div>
           <div className="flex items-center mb-4 bg-white rounded-xl px-3 py-2 w-60 shadow-3xl cursor-pointer">
-            <img className="w-6 h-6" src={SupportIcon} alt="support" />
-            <button className="ml-2 text-dark-black bg-white rounded-lg py-3 px-6 text-md font-sora font-semibold leading-3">
+            <img className="w-6 h-6" src={supportIcon} alt="Support icon" />
+            <button 
+              className="ml-2 text-dark-black bg-white rounded-lg py-3 px-6 text-md font-sora font-semibold leading-3"
+              aria-label="Support"
+            >
               Support
             </button>
           </div>
