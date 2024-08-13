@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 header {
-    background-image: url("assets/photos/header.png");
+    background-image: url("./assets/photos/header.png");
 }

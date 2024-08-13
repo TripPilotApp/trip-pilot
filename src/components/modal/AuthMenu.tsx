@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 // import { ModalContext } from './ModalProvider';
 import LoginForm from '../LoginForm';
 import SignUpForm from '../SignUpForm';
+import logo from '../../assets/icons/logo-light.png';
 import homeIcon from '../../assets/icons/home-icon.svg';
-import pastTripIcon from '../../assets/icons/past-trips-icon.svg';
-import logo from '../../assets/icons/white-logo.png';
+import planeIcon from '../../assets/icons/plane-icon.svg';
 import supportIcon from '../../assets/icons/support-icon.svg';
 // import BackButton from './BackButton'; // Assuming BackButton component exists
 
@@ -52,7 +52,7 @@ const AuthMenu: React.FC<AuthMenuProps> = ({ setLoggedIn }) => {
             </button>
           </div>
           <div className="flex items-center mb-4 bg-white rounded-xl px-3 py-2 w-60 shadow-3xl cursor-pointer">
-            <img className="w-6 h-6" src={pastTripIcon} alt="Sign up icon" />
+            <img className="w-6 h-6" src={planeIcon} alt="Sign up icon" />
             <button 
               onClick={() => handleOpenForm('signup')} 
               className="ml-2 text-dark-black bg-white rounded-lg py-3 px-6 text-md font-sora font-semibold leading-3"
