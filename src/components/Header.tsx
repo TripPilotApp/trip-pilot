@@ -1,4 +1,4 @@
-import logo from '../assets/icons/logo-light.png';
+import logo from '@/assets/icons/logo-light.png';
 import { ModalContext } from './modal/ModalProvider';
 import React, { useContext } from 'react';
 import MenuModal from './modal/MenuModal';
