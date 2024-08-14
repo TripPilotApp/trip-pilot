@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ModalContext } from "./ModalProvider";
-import logo from '../../assets/icons/logo-light.png';
+import logo from '@/assets/icons/logo-light.png';
 import HomeIcon from '@/assets/icons/home-icon.svg?react';
 import PlaneIcon from '@/assets/icons/plane-icon.svg?react';
 import HistoryIcon from '@/assets/icons/history-icon.svg?react';
@@ -18,6 +18,7 @@ const Menu: React.FC<MainMenuProps> = ({ setLoggedIn }) => {
   const { closeModal } = useContext(ModalContext);
 
   const handleLogOut = () => {
+    localStorage.removeItem('token');
     setLoggedIn(false);
     closeModal('menuModal');
   }
