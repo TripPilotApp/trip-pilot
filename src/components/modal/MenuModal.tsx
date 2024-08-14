@@ -12,7 +12,7 @@ const MenuModal: React.FC<ModalProps> = ({ isVisible, onClose, children, ...prop
       // Focus the modal when it opens
       const focusableElements = document.querySelectorAll(
         '.modal-content, .modal-content *'
-      ) as NodeListOf<HTMLElement>;
+      );
 
       if (focusableElements.length > 0) {
         (focusableElements[0] as HTMLElement).focus();
@@ -21,7 +21,7 @@ const MenuModal: React.FC<ModalProps> = ({ isVisible, onClose, children, ...prop
   }, [isVisible]);
 
   const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
-    if ((e.target as HTMLDivElement).id === 'wrapper') onClose();
+    if ((e.target as HTMLDivElement).id === 'wrapper' || (e.target as HTMLDivElement).id === 'close-button') onClose();
   };
   
   if (!isVisible) return null;
@@ -33,7 +33,8 @@ const MenuModal: React.FC<ModalProps> = ({ isVisible, onClose, children, ...prop
       aria-modal="true"
     >
       <div
-        className="absolute top-4 right-4 inline-flex items-center justify-center p-2 w-10 h-10 text-2xl text-white rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        id="close-button"
+        className="z-10 absolute top-4 right-4 inline-flex items-center justify-center p-2 w-10 h-10 text-4xl text-white rounded-lg transition-all hover:text-5xl focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:ring-gray-700 dark:focus:ring-gray-600 cursor-pointer"
         onClick={handleClose}
         aria-label='Close modal'
       >
