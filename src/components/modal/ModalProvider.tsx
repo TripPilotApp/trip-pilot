@@ -1,18 +1,16 @@
 import React, { createContext, useState } from 'react';
 
 interface ModalContextProps {
-  showModal: { [key: string]: boolean };
+  showModal: { menuModal: boolean };
   openModal: (modal: string) => void;
   closeModal: (modal: string) => void;
-  auth: string;
   setToken: (token: string) => void;
 }
 
 export const ModalContext = createContext<ModalContextProps>({
-  showModal: { loginModal: false, signUpModal: false },
+  showModal: { menuModal: false },
   openModal: () => {},
   closeModal: () => {},
-  auth: '',
   setToken: () => {},
 });
 
@@ -22,19 +20,19 @@ interface ModalProviderProps {
 
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const [showModal, setShowModal] = useState({
-    loginModal: false,
-    signUpModal: false,
+    menuModal: false,
   });
-  const [auth, setAuth] = useState<string>('');
 
-  const setToken = (token: string) => setAuth(token);
+  const setToken = (token: string) => {
+    localStorage.setItem('token', token);
+  }
 
   const openModal = (modal: string) => {
     setShowModal((prevState) => ({
-      loginModal: modal === 'loginModal' ? true : false,
-      signUpModal: modal === 'signUpModal' ? true : false,
+      ...prevState,
+      [modal]: true,
     }));
-  };
+  }
 
   const closeModal = (modal: string) => {
     setShowModal((prevState) => ({
@@ -47,7 +45,6 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     showModal,
     openModal,
     closeModal,
-    auth,
     setToken,
   };
 

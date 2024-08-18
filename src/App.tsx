@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ModalProvider } from './components/modal/ModalProvider';
-import MainContent from './components/MainContent';
+import LandingPage from './components/LandingPage';
 
 const App: React.FC = () => {
   return (
     <ModalProvider>
       <Router>
-        <MainContent />
+        <LandingPage />
       </Router>
     </ModalProvider>
   );

@@ -1,12 +1,16 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import ReusableInput from "./ReusableInput";
+import ReusableInput from "./ui/ReusableInput";
 import { LinkButton } from "./ui/LinkButton";
 import { ModalContext } from "./modal/ModalProvider";
 import { handleLogin } from '../api/registerLogin';
 
-const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  setActiveForm: (form: 'login' | 'signup' | null) => void;
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ setActiveForm, setLoggedIn }) => {
   interface FormValues {
     email: string;
     password: string;
@@ -16,11 +20,12 @@ const LoginForm: React.FC = () => {
     email?: string;
     password?: string;
   }
+
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [values, setValues] = useState<FormValues>({ email: "", password: "" });
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Partial<FormValues>>({});
-  const { openModal, closeModal, setToken } = useContext(ModalContext);
+  const { closeModal, setToken } = useContext(ModalContext);
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -57,18 +62,20 @@ const LoginForm: React.FC = () => {
     }
     setErrors({ ...errors, [name]: error });
   };
+
   const handleSubmit = async () => {
     if (!values.email || !values.password) {
-      return setErrorMessage("Please fill all the fields");
+      return setErrorMessage("Please fill in all fields");
     }
     setErrorMessage("");
     try {
       const response = await handleLogin(values.email, values.password, rememberMe);
       console.log(response.data);
-      closeModal('loginModal');
+      closeModal('menuModal');
       setToken(response.data.token);
+      setLoggedIn(true);
     } catch (error) {
-      console.error('Error login', error);
+      console.error('Error logging in', error);
       if (axios.isAxiosError(error) && error.response && error.response.data && error.response.data.message) {
         setErrorMessage(error.response.data.message);
       } else {
@@ -76,9 +83,10 @@ const LoginForm: React.FC = () => {
       }
     }
   };
+
   return (
     <div className="flex justify-center items-center">
-      <div className="inline-flex flex-col justify-center items-center form-card border-bg">
+      <div className="inline-flex flex-col justify-center items-center form-card border-bg rounded-lg p-6 bg-white">
         <h1 className="font-bold text-blue text-xl lg:text-2xl font-sora leading-none md:leading-normal lg:leading-loose mr-2 -mt-4">
           Login
         </h1>
@@ -95,6 +103,7 @@ const LoginForm: React.FC = () => {
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className="w-full p-2 mb-3 rounded-md border border-gray-300"
               />
               {touched.email && errors.email && (
                 <div className="text-red-600 text-sm mt-1">{errors.email}</div>
@@ -111,6 +120,7 @@ const LoginForm: React.FC = () => {
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className="w-full p-2 mb-3 rounded-md border border-gray-300"
               />
               {touched.password && errors.password && (
                 <div className="text-red-600 text-sm mt-1">{errors.password}</div>
@@ -118,8 +128,13 @@ const LoginForm: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center h-5 mt-2">
-            <input id="default-checkbox" type="checkbox" className="w-4 h-4 rounded-md border-bg" checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)} />
+            <input
+              id="default-checkbox"
+              type="checkbox"
+              className="w-4 h-4 rounded-md border-bg"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
             <label htmlFor="default-checkbox" className="ml-2 font-medium text-black text-base">
               Remember me
             </label>
@@ -136,13 +151,12 @@ const LoginForm: React.FC = () => {
         <div className="flex-center text-xs font-sora font-semibold mt-4">
           <p>
             Don't have an account?{" "}
-            <Link to="/signup" className="text-blue font-bold" onClick={() => {
-              openModal('signUpModal');
-            }}>
-              Sign up<span className="text-blue">!
-              </span>
-            </Link>
+            <span className="text-blue font-bold cursor-pointer" onClick={() => setActiveForm('signup')}>
+              Sign up
+            </span>
           </p>
+          {/* TODO: style this back button */}
+          <p className="text-blue font-bold cursor-pointer pt-2" onClick={() => {setActiveForm(null)}}>Main Menu</p>
         </div>
       </div>
     </div>
